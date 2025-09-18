@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 
+import 'package:task_one/ahwa/features/orders/data/repository/in_memory_order_repository.dart';
+import 'package:task_one/ahwa/features/orders/domain/use_case/order_manager.dart';
+import 'package:task_one/ahwa/features/orders/presentation/screens/home_screen.dart';
+
 void main() {
-  runApp(const TaskOne());
+  runApp(const AhwaApp());
 }
 
-class TaskOne extends StatelessWidget {
-  const TaskOne({super.key});
+class AhwaApp extends StatelessWidget {
+  const AhwaApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final repo = InMemoryOrderRepository();
+    final manager = OrderManager(repo);
+
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Content Display Example')),
-        body: const Center(
-          child: Text('Implement content display in question_one.dart'),
-        ),
-      ),
+      title: 'Smart Ahwa Manager',
+      theme: ThemeData(primarySwatch: Colors.brown),
+      home: HomeScreen(manager: manager),
     );
   }
 }
